@@ -26,6 +26,8 @@ def gen_dim_date(start_date=date(2019, 1, 1), end_date=date(2019, 12, 31)):
         current_date_dict['DATE_ID'] = fns_date_id(python_date)
         
         current_date_dict['FULL_DATE'] = fns_date(current_date_dict['DATE_ID'])
+
+        current_date_dict['WEEKDAY'] = 1 if python_date.weekday() <= 4 else 0
         
         current_date_dict['MONTH_VALUE'] = python_date.month
 
@@ -49,7 +51,7 @@ def gen_dim_date(start_date=date(2019, 1, 1), end_date=date(2019, 12, 31)):
         
         current_date_dict['LAST_DAY_OF_YEAR'] = date(python_date.year, 12, 31)
 
-        retain_format = tuple(['DATE_ID', 'FULL_DATE', 'MONTH_VALUE', 'QUARTER_VALUE'])
+        retain_format = tuple(['DATE_ID', 'FULL_DATE', 'MONTH_VALUE', 'QUARTER_VALUE', 'WEEKDAY'])
         final_date_dict = {k: v if k in retain_format else fns_date_id(v) for k, v in current_date_dict.items()}
         dim_date.append(final_date_dict)
 
