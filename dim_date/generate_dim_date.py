@@ -1,5 +1,9 @@
 from datetime import date, timedelta, datetime
 from calendar import monthrange
+import os
+import sys
+import getpass
+
 import pandas as pd
 
 date_int_format = '%Y%m%d'
@@ -27,9 +31,15 @@ def gen_dim_date(start_date=date(2019, 1, 1), end_date=date(2019, 12, 31)):
         
         current_date_dict['FULL_DATE'] = fns_date(current_date_dict['DATE_ID'])
 
-        current_date_dict['WEEKDAY'] = 1 if python_date.weekday() <= 4 else 0
-        
+        current_date_dict['DAY_VALUE'] = python_date.day
+
+        current_date_dict['WEEKDAY_NAME'] = python_date.strftime('%A')
+
+        current_date_dict['IS_WEEKDAY'] = 1 if python_date.weekday() <= 4 else 0
+
         current_date_dict['MONTH_VALUE'] = python_date.month
+
+        current_date_dict['MONTH_NAME'] = python_date.strftime('%B')
 
         current_date_dict['FIRST_DAY_OF_MONTH'] = python_date.replace(day=1)
         
@@ -51,16 +61,15 @@ def gen_dim_date(start_date=date(2019, 1, 1), end_date=date(2019, 12, 31)):
         
         current_date_dict['LAST_DAY_OF_YEAR'] = date(python_date.year, 12, 31)
 
-        retain_format = tuple(['DATE_ID', 'FULL_DATE', 'MONTH_VALUE', 'QUARTER_VALUE', 'WEEKDAY'])
-        final_date_dict = {k: v if k in retain_format else fns_date_id(v) for k, v in current_date_dict.items()}
+        final_date_dict = {k: fns_date_id(v) if k.startswith(('FIRST', 'LAST')) else v for k, v in current_date_dict.items()}
         dim_date.append(final_date_dict)
 
     return dim_date
 
 if __name__ == '__main__':
     try:
-        df = pd.DataFrame(gen_dim_date())
-        df.to_csv('dim_date.csv', index=False)
+        destination_csv_path = os.path.join(*['/Users', getpass.getuser(), 'Projects/Helper_Functions/dim_date/dim_date.csv'])
+        pd.DataFrame(gen_dim_date()).to_csv(destination_csv_path, index=False)
         print('Process completed!')
     except Exception as e:
         print(f'Error occurred: {e}')
