@@ -48,3 +48,6 @@ class TestDimDate(unittest.TestCase):
         self.assertEqual(random_day['LAST_DAY_OF_QUARTER'], 20190930)
         self.assertEqual(random_day['FIRST_DAY_OF_YEAR'], 20190101)
         self.assertEqual(random_day['LAST_DAY_OF_YEAR'], 20191231)
+
+if __name__ == '__main__':
+    unittest.main()
