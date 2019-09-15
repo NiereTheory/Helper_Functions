@@ -9,10 +9,9 @@ from dim_date import DimDate
 class TestDimDate(unittest.TestCase):
 
     def setUp(self):
-        self.dim_date = DimDate()
+        self.dim_date = DimDate(date_str_format=r'%Y-%m-%d')
 
     def test_fns_date(self):
-        print('My val is:', self.dim_date.date_int_format)
         self.assertEqual(self.dim_date.fns_date(20190101), '2019-01-01')
 
     def test_fns_date_id(self):
@@ -51,7 +50,8 @@ class TestDimDate(unittest.TestCase):
         self.assertEqual(random_day['FIRST_DAY_OF_MONTH'].values[0], 20190701)
         self.assertEqual(random_day['LAST_DAY_OF_MONTH'].values[0], 20190731)
         self.assertEqual(random_day['QUARTER_VALUE'].values[0], 3)
-        self.assertEqual(random_day['FIRST_DAY_OF_QUARTER'].values[0], 20190701)
+        self.assertEqual(
+            random_day['FIRST_DAY_OF_QUARTER'].values[0], 20190701)
         self.assertEqual(random_day['LAST_DAY_OF_QUARTER'].values[0], 20190930)
         self.assertEqual(random_day['FIRST_DAY_OF_YEAR'].values[0], 20190101)
         self.assertEqual(random_day['LAST_DAY_OF_YEAR'].values[0], 20191231)
