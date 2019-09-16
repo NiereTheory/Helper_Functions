@@ -16,22 +16,25 @@ class DimTime():
             for minute in range(60):
                 for second in range(60):
                     current_time_dict: Dict = {}
-                    current_time_dict["TIME_ID"] = ''.join([self.right_justify(hour), self.right_justify(
-                        minute), self.right_justify(second)])
-                    current_time_dict["MILITARY_HOUR"] = self.right_justify(
-                        hour)
+
+                    current_time_dict["TIME_ID"] = ''.join(
+                        [self.right_justify(hour), self.right_justify(minute), self.right_justify(second)]
+                    )
+                    current_time_dict["MILITARY_HOUR"] = self.right_justify(hour)
+                    # walrus operator would be nice
                     current_time_dict["HOUR"] = current_time_dict["MILITARY_HOUR"] if int(current_time_dict[
-                        "MILITARY_HOUR"]) < 13 else self.right_justify(int(current_time_dict["MILITARY_HOUR"]) - 12)  # walrus operator would be nice
+                        "MILITARY_HOUR"]) < 13 else self.right_justify(int(current_time_dict["MILITARY_HOUR"]) - 12)
                     current_time_dict["MINUTE"] = self.right_justify(minute)
                     current_time_dict["SECOND"] = self.right_justify(second)
                     current_time_dict["MILITARY_COMBINED"] = ':'.join(
-                        [current_time_dict["MILITARY_HOUR"], current_time_dict["MINUTE"], current_time_dict["SECOND"]])
+                        [current_time_dict["MILITARY_HOUR"], current_time_dict["MINUTE"], current_time_dict["SECOND"]]
+                    )
                     current_time_dict["COMBINED"] = ':'.join(
-                        [current_time_dict["HOUR"], current_time_dict["MINUTE"], current_time_dict["SECOND"]])
-                    current_time_dict["AM_PM"] = "AM" if int(
-                        current_time_dict["MILITARY_HOUR"]) < 12 else "PM"
-                    current_time_dict["BUSINESS_HOUR"] = 1 if 9 <= int(
-                        current_time_dict['MILITARY_HOUR']) <= 17 else 0
+                        [current_time_dict["HOUR"], current_time_dict["MINUTE"], current_time_dict["SECOND"]]
+                    )
+                    current_time_dict["AM_PM"] = "AM" if int(current_time_dict["MILITARY_HOUR"]) < 12 else "PM"
+                    current_time_dict["BUSINESS_HOUR"] = 1 if 9 <= int(current_time_dict['MILITARY_HOUR']) <= 17 else 0
+
                     dim_time.append(current_time_dict)
 
         return pd.DataFrame(dim_time)

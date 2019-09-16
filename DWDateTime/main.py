@@ -13,7 +13,7 @@ def main():
     dt = DimTime()
     df_dt = dt.gen_dim_time()
 
-    for idx, df in enumerate([df_dd, df_dt]):
+    for df in [df_dd, df_dt]:
         try:
             destination_csv_path: str = f"/app/Data/{df.columns[0].split('_')[0]}.csv"
             df.to_csv(destination_csv_path, index=False)
