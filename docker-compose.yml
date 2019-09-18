@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  data-builder:
+    build: "./DWDateTime"
+    # volumes:
+    #   - ./:/app
+    command: sh -c "python /app/main.py"
+    # command: sh -c "python -m pytest"
