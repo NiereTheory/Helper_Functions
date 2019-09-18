@@ -3,7 +3,8 @@ version: "3"
 services:
   data-builder:
     build: "./DWDateTime"
-    # volumes:
+    # volumes: # we'll let VSCode handle these for local development
     #   - ./:/app
     command: sh -c "python /app/main.py"
-    # command: sh -c "python -m pytest"
+    # these commands are overridden when using docker-compose run <service> sh -c "<command>"
+    # for example: docker-compose run data-builder sh -c "pytest"
