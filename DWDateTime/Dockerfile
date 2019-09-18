@@ -9,6 +9,3 @@ COPY . /app
 
 RUN pwd
 RUN ls
-
-RUN adduser -D userrunner
-USER userrunner
