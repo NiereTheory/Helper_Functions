@@ -8,8 +8,5 @@ services:
 
 before_script: pip install docker-compose
 
-install:
-  - pip install -r requirements.txt
-
 script:
   - docker-compose run data-builder sh -c "pytest"
